@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-
-namespace WebApplication
+﻿namespace WebApplication
 {
-    public class Program
+    using Autofac.Extensions.DependencyInjection;
+    using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Hosting;
+
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -19,6 +13,7 @@ namespace WebApplication
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureServices(services => services.AddAutofac())
                 .UseStartup<Startup>();
     }
 }

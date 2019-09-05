@@ -4,6 +4,8 @@
     using System.Net;
     using EnsureThat;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
+    using WebApplication.Configuration;
     using WebApplication.Core;
 
     /// <summary>
@@ -13,14 +15,15 @@
     [ApiController]
     public sealed class LinkController : ControllerBase
     {
-        private const int MaxRetry = 5;
         private readonly IRepository repository;
         private readonly IShortenUrlGenerator shortenUrlGenerator;
+        private readonly ApiOptions options;
 
-        public LinkController(IRepository repository, IShortenUrlGenerator shortenUrlGenerator)
+        public LinkController(IRepository repository, IShortenUrlGenerator shortenUrlGenerator, ApiOptions apiOptions)
         {
             this.repository = EnsureArg.IsNotNull(repository, nameof(repository));
             this.shortenUrlGenerator = EnsureArg.IsNotNull(shortenUrlGenerator, nameof(shortenUrlGenerator));
+            this.options = EnsureArg.IsNotNull(apiOptions, nameof(apiOptions));
         }
 
         /// <summary>
@@ -40,7 +43,7 @@
             int count = 0;
             string shortenUrl = string.Empty;
 
-            for (count = 0; count < MaxRetry; count++)
+            for (count = 0; count < this.options.AddMaxRetry; count++)
             {
                 shortenUrl = this.shortenUrlGenerator.GetRandomUrl(url);
 
@@ -50,7 +53,7 @@
                 }
             }
 
-            if (count == MaxRetry)
+            if (count == this.options.AddMaxRetry)
             {
                 this.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return null;
