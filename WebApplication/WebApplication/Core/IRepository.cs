@@ -1,6 +1,7 @@
 ﻿namespace WebApplication.Core
 {
     using System;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// An interface that contains method to store and retrieve the url.
@@ -13,7 +14,7 @@
         /// <param name="shortenUrl">The unique shorten url.</param>
         /// <param name="url">The long url.</param>
         /// <returns>True if successful.</returns>
-        bool Add(string shortenUrl, Uri url);
+        Task<bool> AddAsync(string shortenUrl, Uri url);
 
         /// <summary>
         /// Get the long url.

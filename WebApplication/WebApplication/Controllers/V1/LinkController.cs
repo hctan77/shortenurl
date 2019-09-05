@@ -2,9 +2,9 @@
 {
     using System;
     using System.Net;
+    using System.Threading.Tasks;
     using EnsureThat;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Options;
     using WebApplication.Configuration;
     using WebApplication.Core;
 
@@ -32,7 +32,7 @@
         /// <param name="url">The url.</param>
         /// <returns>The shorten url.</returns>
         [HttpPost]
-        public ActionResult<string> Shorten(Uri url)
+        public async Task<ActionResult<string>> ShortenAsync(Uri url)
         {
             if (url == null)
             {
@@ -47,7 +47,7 @@
             {
                 shortenUrl = this.shortenUrlGenerator.GetRandomUrl(url);
 
-                if (this.repository.Add(shortenUrl, url))
+                if (await this.repository.AddAsync(shortenUrl, url).ConfigureAwait(false))
                 {
                     break;
                 }

@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Autofac;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using WebApplication.Configuration;
-using WebApplication.Core;
-
-namespace WebApplication
+﻿namespace WebApplication
 {
+    using Autofac;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using WebApplication.Configuration;
+    using WebApplication.Core;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -70,6 +65,9 @@ namespace WebApplication
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.Register(p => this.Configuration.GetSection("Api").Get<ApiOptions>())
+                .SingleInstance();
+
+            builder.Register(p => this.Configuration.GetSection("AzureTable").Get<AzureTableStorageOptions>())
                 .SingleInstance();
 
             builder.RegisterType<ShortenUrlGenerator>()
