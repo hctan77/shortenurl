@@ -7,6 +7,10 @@
     /// </summary>
     internal sealed class LinkEntity : TableEntity
     {
+        public LinkEntity()
+        {
+        }
+
         public LinkEntity(string shortenUri, string url)
             : base(shortenUri.Substring(0,1), shortenUri)
         {

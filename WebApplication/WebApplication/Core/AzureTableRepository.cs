@@ -28,6 +28,9 @@
         /// <inheritdoc />
         public async Task<bool> AddAsync(string shortenUrl, Uri url)
         {
+            EnsureArg.IsNotNullOrWhiteSpace(shortenUrl, nameof(shortenUrl));
+            EnsureArg.IsNotNull(url, nameof(url));
+
             var entity = new LinkEntity(shortenUrl, url.ToString());
 
             TableOperation insertOperation = TableOperation.Insert(entity);
@@ -43,9 +46,27 @@
         }
 
         /// <inheritdoc />
-        public Uri Get(string shortenUrl)
+        public async Task<Uri> GetAsync(string shortenUrl)
         {
-            throw new NotImplementedException();
+            EnsureArg.IsNotNullOrWhiteSpace(shortenUrl, nameof(shortenUrl));
+
+            TableOperation retrieveOperation = TableOperation.Retrieve<LinkEntity>(shortenUrl.Substring(0,1), shortenUrl);
+            TableResult query = await table.ExecuteAsync(retrieveOperation).ConfigureAwait(false);
+
+            if (query == null)
+            {
+                return null;
+            }
+
+            var linkEntity = query.Result as LinkEntity;
+            var url = linkEntity?.Url;
+
+            if (!string.IsNullOrWhiteSpace(url) && Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out Uri result))
+            {
+                return result;
+            }
+
+            return null;
         }
     }
 }

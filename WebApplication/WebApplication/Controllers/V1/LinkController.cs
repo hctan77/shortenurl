@@ -61,5 +61,17 @@
 
             return shortenUrl;
         }
+
+        [HttpGet]
+        public async Task<ActionResult<Uri>> GetLongUrlAsync(string shortenUri)
+        {
+            if (shortenUri == null)
+            {
+                this.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return null;
+            }
+
+            return await this.repository.GetAsync(shortenUri).ConfigureAwait(false);
+        }
     }
 }

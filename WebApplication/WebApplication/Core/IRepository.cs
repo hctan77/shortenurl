@@ -21,6 +21,6 @@
         /// </summary>
         /// <param name="shortenUrl">The shorten url.</param>
         /// <returns>The long url. Null if the url doesn't exists.</returns>
-        Uri Get(string shortenUrl);
+        Task<Uri> GetAsync(string shortenUrl);
     }
 }
