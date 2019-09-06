@@ -1,8 +1,6 @@
 ﻿namespace WebApplication.UnitTests.Core
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
     using Xunit;
 
     public class ShortenUrlGeneratorTests
@@ -14,6 +12,24 @@
         {
             this.steps
                 .WhenIInstantiateTheGeneratorWithNullFunc()
+                .ThenShouldThrowArgumentNullException();
+        }
+
+        [Fact]
+        public void GetRandomUrl_ValidUrl_ExpectedShortUrl()
+        {
+            this.steps
+                .GivenIHaveAGeneratorWithoutRandomizer()
+                .WhenIGetRandomUrl(new Uri("http://www.example.com"))
+                .ThenShortUrlShouldBe("8XdxEf");
+        }
+
+        [Fact]
+        public void GetRandomUrl_NullUrl_ThrowsException()
+        {
+            this.steps
+                .GivenIHaveAGenerator()
+                .WhenIGetRandomUrl(null)
                 .ThenShouldThrowArgumentNullException();
         }
     }
