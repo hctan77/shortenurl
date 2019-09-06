@@ -9,12 +9,31 @@
     /// </summary>
     internal sealed class ShortenUrlGenerator : IShortenUrlGenerator
     {
+        private readonly Func<string> generateRandomString;
+
+        /// <summary>
+        /// Initialize a new instance of <see cref="ShortenUrlGenerator"/>
+        /// </summary>
+        public ShortenUrlGenerator()
+            : this(() => Guid.NewGuid().ToString())
+        {
+        }
+
+        /// <summary>
+        /// Initialize a new instance of <see cref="ShortenUrlGenerator"/>
+        /// </summary>
+        /// <param name="GenerateRandomString">A method that returns the random string.</param>
+        internal ShortenUrlGenerator(Func<string> GenerateRandomString)
+        {
+            this.generateRandomString = EnsureArg.IsNotNull(GenerateRandomString, nameof(GenerateRandomString));
+        }
+
         /// <inheritdoc/>
         public string GetRandomUrl(Uri longUrl)
         {
             EnsureArg.IsNotNull(longUrl, nameof(longUrl));
 
-            return GenerateShortUniqueKey($"{longUrl}{Guid.NewGuid()}");
+            return GenerateShortUniqueKey($"{longUrl}{this.generateRandomString.Invoke()}");
         }
 
         private string GenerateShortUniqueKey(string input)
