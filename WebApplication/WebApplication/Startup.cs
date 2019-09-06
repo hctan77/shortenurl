@@ -53,6 +53,10 @@
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "shortUri",
+                    template: "{id}",
+                    defaults: new { controller = "Redirect", action = "IndexAsync" });
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
