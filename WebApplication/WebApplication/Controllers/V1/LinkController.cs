@@ -71,7 +71,14 @@
                 return null;
             }
 
-            return await this.repository.GetAsync(id).ConfigureAwait(false);
+            var uri = await this.repository.GetAsync(id).ConfigureAwait(false);
+
+            if (uri == null)
+            {
+                this.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            }
+
+            return uri;
         }
     }
 }
