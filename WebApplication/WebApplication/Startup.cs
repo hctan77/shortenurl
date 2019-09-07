@@ -66,7 +66,7 @@
         /// Configure the container builder.
         /// </summary>
         /// <param name="builder">The <see cref="ContainerBuilder"/></param>
-        public void ConfigureContainer(ContainerBuilder builder)
+        public virtual void ConfigureContainer(ContainerBuilder builder)
         {
             builder.Register(p => this.Configuration.GetSection("Api").Get<ApiOptions>())
                 .SingleInstance();
