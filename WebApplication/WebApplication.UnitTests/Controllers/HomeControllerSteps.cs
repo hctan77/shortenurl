@@ -42,7 +42,7 @@
             var errorViewModel = viewResult.Model as ErrorViewModel;
             errorViewModel.Should().NotBeNull();
             errorViewModel.RequestId.Should().NotBeNull();
-            
+            errorViewModel.ShowRequestId.Should().BeTrue();
             return this;
         }
     }
