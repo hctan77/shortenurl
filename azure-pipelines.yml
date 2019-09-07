@@ -34,12 +34,23 @@ steps:
     configuration: '$(buildConfiguration)'
     codeCoverageEnabled: true
 
-#- task: DotNetCoreCLI@2
-#  inputs:
-#    command: 'publish'
-#    publishWebProjects: true
-#    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-#    zipAfterPublish: True
+- task: mspremier.BuildQualityChecks.QualityChecks-task.BuildQualityChecks@5
+  displayName: 'Check build quality'
+  inputs:
+    checkWarnings: true
+    warningFailOption: fixed
+    warningFilters: |
+     /\[warning\]/i
+     /\[super\]/i
+    showStatistics: true
+    checkCoverage: true
+    coverageFailOption: fixed
+    coverageThreshold: 0.001
+    coverageType: branches
+    buildConfiguration: '$(BuildConfiguration)'
+    buildPlatform: '$(BuildPlatform)'
+    explicitFilter: true
+    baseBranchRef: refs/heads/master
 
 # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
 - task: PublishBuildArtifacts@1
