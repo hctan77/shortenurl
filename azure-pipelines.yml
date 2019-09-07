@@ -33,7 +33,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     codeCoverageEnabled: true
-    runSettingsFile: 'CodeCoverage.runsettings'
+    runSettingsFile: 'WebApplication/CodeCoverage.runsettings'
 
 - task: BuildQualityChecks@6
   inputs:
