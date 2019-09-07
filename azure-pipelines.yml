@@ -47,7 +47,7 @@ steps:
     checkCoverage: true
     coverageFailOption: 'fixed'
     coverageType: 'blocks'
-    coverageThreshold: '0.00001'
+    coverageThreshold: '85'
     buildConfiguration: '$(buildConfiguration)'
     buildPlatform: '$(buildPlatform)'
 
