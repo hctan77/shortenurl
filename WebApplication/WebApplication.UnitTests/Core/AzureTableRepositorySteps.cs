@@ -23,7 +23,7 @@
         public AzureTableRepositorySteps(AzureStorageEmulator azureStorageEmulator)
         {
             this.cloudTable = azureStorageEmulator.TableClient.CreateTableIfNotExists(TableName);
-            this.azureTableRepository = new AzureTableRepository(new AzureTableStorageOptions(), this.cloudTable);
+            this.azureTableRepository = new AzureTableRepository(new AzureTableStorageOptions() { AccountKey = "key", AccountName = "name", TableName = "table" }, this.cloudTable);
         }
 
         public Task GivenIHaveInAzureTable(string shortenUrl, string longUrl)
