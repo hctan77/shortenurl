@@ -21,6 +21,7 @@
                 <ModulePath>.*FluentAssertions.*</ModulePath>
                 <!-- All possible test assembly names -->
                 <ModulePath>.*Tests?\..*</ModulePath>
+				<ModulePath>.*TestCore\..*</ModulePath>
               </Exclude>
             </ModulePaths>
 

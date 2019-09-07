@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CodeCoverage.runsettings = CodeCoverage.runsettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCore", "TestCore\TestCore.csproj", "{A42239B3-E22F-4A48-AF05-6279E5E49762}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,12 +30,17 @@ Global
 		{4DAF055B-06A7-4F9C-B040-EDBBAE9ED4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DAF055B-06A7-4F9C-B040-EDBBAE9ED4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DAF055B-06A7-4F9C-B040-EDBBAE9ED4EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A42239B3-E22F-4A48-AF05-6279E5E49762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A42239B3-E22F-4A48-AF05-6279E5E49762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A42239B3-E22F-4A48-AF05-6279E5E49762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A42239B3-E22F-4A48-AF05-6279E5E49762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4DAF055B-06A7-4F9C-B040-EDBBAE9ED4EF} = {1D6FDCBA-8EF9-4D08-B56A-2E3D306CAB02}
+		{A42239B3-E22F-4A48-AF05-6279E5E49762} = {1D6FDCBA-8EF9-4D08-B56A-2E3D306CAB02}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5DF1E2F4-DD3A-4AA9-9915-71D37CDB6BC9}
