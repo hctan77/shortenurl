@@ -28,12 +28,37 @@ function shortenUrl() {
         success: function (result) {
             alert("Short URL generated - [" + result + "]");
         },
-        fail: function () {
+        error: function () {
             alert("Fail to generate short URL.");
         }
     });
 }
 
+function getLongUrl() {
+    var shortUrl = document.getElementById("inputShortUrl").value;
+
+    if (isEmptyOrSpaces(shortUrl)) {
+        alert("Invalid short URL.");
+    }
+
+    $.ajax({
+        url: getData("data-linkApiBaseAddress") + shortUrl,
+        method: "GET",
+        success: function (result) {
+            alert("The long URL is [" + result + "]");
+        },
+        error: function (xhr, err) {
+            if (xhr.status === 404) {
+                alert("Long URL not found for " + shortUrl);
+            }
+            else {
+                alert("Failed to get long URL.");
+            }
+        }
+    });
+}
+
 $(document).ready(function () {
-    document.getElementById("buttonLongUrl").addEventListener("click", shortenUrl);
+    document.getElementById("buttonShortenUrl").addEventListener("click", shortenUrl);
+    document.getElementById("buttonLongUrl").addEventListener("click", getLongUrl);
 });
