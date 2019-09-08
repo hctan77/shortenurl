@@ -2,6 +2,15 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+function getData(dataAttribute) {
+    try {
+        return document.getElementById("javascript").getAttribute(dataAttribute);
+    }
+    catch (err) {
+        console.error("Couldn't read data from " + dataAttribute, err);
+    }
+}
+
 function isEmptyOrSpaces(str) {
     return str === null || str.match(/^ *$/) !== null;
 }
@@ -14,7 +23,7 @@ function shortenUrl() {
     }
 
     $.ajax({
-        url: "https://shortenurl.trafficmanager.net/api/v1/link?url=" + longUrl,
+        url: getData("data-linkApiBaseAddress") + "?url=" + longUrl,
         method: "POST",
         success: function (result) {
             alert("Short URL generated - [" + result + "]");

@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Options;
     using WebApplication.Configuration;
     using WebApplication.Core;
 
@@ -68,8 +69,12 @@
         /// <param name="builder">The <see cref="ContainerBuilder"/></param>
         public virtual void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.Register(p => this.Configuration.GetSection("Api").Get<ApiOptions>())
+            var apiOptions = this.Configuration.GetSection("Api").Get<ApiOptions>();
+
+            builder.Register(p => apiOptions)
                 .SingleInstance();
+
+            builder.RegisterInstance(Options.Create(apiOptions));
 
             builder.Register(p => this.Configuration.GetSection("AzureTable").Get<AzureTableStorageOptions>())
                 .SingleInstance();

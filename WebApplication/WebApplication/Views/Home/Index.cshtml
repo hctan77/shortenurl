@@ -1,4 +1,9 @@
-﻿@{
+﻿@using Microsoft.Extensions.Options
+@using WebApplication.Configuration
+
+@inject IOptions<ApiOptions> ApiOptions
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -9,9 +14,11 @@
         <div style="display:inline-block;margin-right:10px;">
             <label>Long URL</label>
         </div>
-        <input id="inputLongUrl" placeholder="Enter a long URL (e.g. https://...)" tabindex="1" style="display:inline-block;margin-right:10px;"/>
+        <input id="inputLongUrl" placeholder="Enter a long URL (e.g. https://...)" tabindex="1" style="display:inline-block;margin-right:10px;" />
         <div class="buttons" style="display:inline-block;">
             <button id="buttonLongUrl" tabindex="1">Shorten URL</button>
         </div>
     </div>
 </div>
+
+<script id="javascript" data-linkApiBaseAddress="@ApiOptions.Value.LinkApiBaseAddress"></script>

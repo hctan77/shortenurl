@@ -14,5 +14,10 @@ namespace WebApplication.Configuration
         /// Maximum retry for add.
         /// </summary>
         public int AddMaxRetry { get; set; }
+
+        /// <summary>
+        /// Base address for link api.
+        /// </summary>
+        public string LinkApiBaseAddress { get; set; }
     }
 }
