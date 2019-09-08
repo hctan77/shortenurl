@@ -20,6 +20,7 @@ function shortenUrl() {
 
     if (isEmptyOrSpaces(longUrl)) {
         alert("Invalid long URL.");
+        return;
     }
 
     $.ajax({
@@ -44,6 +45,7 @@ function getLongUrl() {
 
     if (isEmptyOrSpaces(shortUrl)) {
         alert("Invalid short URL.");
+        return;
     }
 
     $.ajax({
