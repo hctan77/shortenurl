@@ -49,9 +49,9 @@
             this.result = await this.fixture.Client.SendAsync(request).ConfigureAwait(false);
         }
 
-        public async Task WhenIShortenUrlAsync(Uri longUrl)
+        public async Task WhenIShortenUrlAsync(string longUrl)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, new Uri($"{linkEndpoint}?url={longUrl.ToString()}"));
+            var request = new HttpRequestMessage(HttpMethod.Post, new Uri($"{linkEndpoint}?url={longUrl}"));
             this.result = await this.fixture.Client.SendAsync(request).ConfigureAwait(false);
         }
 
@@ -64,6 +64,16 @@
 
             var actual = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
             actual.Should().Be(expected);
+        }
+
+        public LinkSteps ThenStatusCodeShouldBe(HttpStatusCode expected)
+        {
+            this.result.Should().NotBeNull();
+
+            var httpResponse = (HttpResponseMessage)this.result;
+            httpResponse.StatusCode.Should().Be((int)expected);
+
+            return this;
         }
     }
 }

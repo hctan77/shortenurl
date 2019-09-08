@@ -34,7 +34,7 @@
         [HttpPost]
         public async Task<ActionResult<string>> ShortenAsync(Uri url)
         {
-            if (url == null)
+            if (url == null || !url.IsAbsoluteUri)
             {
                 this.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return null;

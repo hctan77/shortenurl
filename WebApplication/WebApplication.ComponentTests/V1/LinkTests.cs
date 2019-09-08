@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Net;
     using System.Text;
     using System.Threading.Tasks;
     using Xunit;
@@ -28,14 +29,27 @@
         }
 
         [Fact]
-        public async Task ShortenAsync_ShortUrl_ReturnsLongUrl()
+        public async Task ShortenAsync_ValidUrl_ReturnsShortUrl()
         {
             await this.steps
                 .GivenISetupAddToRepo("abc", new Uri("http://www.example.com/21"))
-                .WhenIShortenUrlAsync(new Uri("http://www.example.com/21"));
+                .WhenIShortenUrlAsync("http://www.example.com/21").ConfigureAwait(false);
 
             await this.steps
                 .ThenResultShouldBeAsync("abc").ConfigureAwait(false);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("www.example.com")]
+        public async Task ShortenAsync_InvalidUrl_BadRequest(string url)
+        {
+            await this.steps
+                .WhenIShortenUrlAsync(url).ConfigureAwait(false);
+
+            this.steps
+                .ThenStatusCodeShouldBe(HttpStatusCode.BadRequest);
         }
     }
 }

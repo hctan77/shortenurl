@@ -28,8 +28,13 @@ function shortenUrl() {
         success: function (result) {
             alert("Short URL generated - [" + result + "]");
         },
-        error: function () {
-            alert("Fail to generate short URL.");
+        error: function (xhr) {
+            if (xhr.status === 400) {
+                alert("Invalid URL provided. Please provide an absolute URL.");
+            }
+            else {
+                alert("Fail to generate short URL.");
+            }
         }
     });
 }
@@ -47,7 +52,7 @@ function getLongUrl() {
         success: function (result) {
             alert("The long URL is [" + result + "]");
         },
-        error: function (xhr, err) {
+        error: function (xhr) {
             if (xhr.status === 404) {
                 alert("Long URL not found for " + shortUrl);
             }
