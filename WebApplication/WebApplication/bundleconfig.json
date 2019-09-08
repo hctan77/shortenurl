@@ -1,4 +1,4 @@
-{
+[
   {
     "outputFileName": "wwwroot/css/site.min.css",
     "inputFiles": [
@@ -16,4 +16,4 @@
     },
     "sourceMap": false
   }
-}
+]
